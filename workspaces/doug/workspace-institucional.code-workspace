@@ -1,0 +1,142 @@
+{
+  "folders": [
+    // A pasta raiz do projeto.
+    // Isso é útil para ver arquivos como docker-compose.yml, package.json, etc.
+    {
+      "name": "🏠 Raiz do Projeto",
+      "path": "."
+    },
+    // Backend Spring Boot
+    {
+      "name": "🔧 Backend (Spring Boot)",
+      "path": "./backend"
+    },
+    // Frontend Angular
+    {
+      "name": "🚀 Frontend (Angular)",
+      "path": "./frontend"
+    },
+    // Scripts de automação e Airflow
+    {
+      "name": "📊 Airflow & Workflows",
+      "path": "./airflow"
+    },
+    // Scripts operacionais
+    {
+      "name": "⚙️ Scripts",
+      "path": "./scripts"
+    },
+    // Documentação do projeto
+    {
+      "name": "📚 Documentação",
+      "path": "./docs"
+    }
+  ],
+  "settings": {
+    // ╔══════════════════════════════════════════════╗
+    // ║ CONFIGURAÇÕES GERAIS DO WORKSPACE            ║
+    // ╚══════════════════════════════════════════════╝
+
+    // Usa a versão do TypeScript instalada no node_modules do frontend
+    "typescript.tsdk": "frontend/node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+
+    // Desativa o aviso do Angular sobre modo estrito (common)
+    "angular.enable-strict-mode-prompt": false,
+
+    // Configurações específicas para Java/Spring Boot
+    "java.configuration.runtimes": [],
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.inlayHints.parameterNames.enabled": "none",
+    "spring-boot.ls.integration.enabled": true,
+
+    // ╔══════════════════════════════════════════════╗
+    // ║ FORMATAÇÃO E QUALIDADE DE CÓDIGO             ║
+    // ╚══════════════════════════════════════════════╝
+
+    // Define formatadores padrão para diferentes linguagens
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[java]": {
+      "editor.defaultFormatter": null,
+      "editor.formatOnSave": true
+    },
+    "[yaml]": {
+      "editor.defaultFormatter": null,
+      "editor.formatOnSave": true
+    },
+    "[dockerfile]": {
+      "editor.defaultFormatter": null,
+      "editor.formatOnSave": true
+    },
+
+    // Ações ao salvar: Organiza imports e corrige erros
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always",
+      "source.fixAll.eslint": "always"
+    },
+
+    // ╔══════════════════════════════════════════════╗
+    // ║ CONFIGURAÇÕES DO EXPLORADOR DE ARQUIVOS      ║
+    // ╚══════════════════════════════════════════════╝
+
+    // Agrupamento de arquivos (File Nesting) para projeto full-stack
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+      "*.ts": "${capture}.js, ${capture}.spec.ts, ${capture}.html, ${capture}.scss, ${capture}.css",
+      "*.component.ts": "${capture}.component.html, ${capture}.component.scss, ${capture}.component.css, ${capture}.component.spec.ts",
+      "*.java": "${capture}Test.java, ${capture}Tests.java",
+      "Application.java": "application.yml, application.properties, application-*.yml, application-*.properties",
+      "docker-compose.yml": "docker-compose.*.yml, .dockerignore, Dockerfile*",
+      "package.json": "package-lock.json, yarn.lock, .npmrc, .prettierrc, .prettierignore, .eslintrc.json, angular.json, nx.json, tsconfig.json, tsconfig.*.json",
+      "pom.xml": "mvnw, mvnw.cmd, .mvn/"
+    },
+
+    // Oculta pastas e arquivos desnecessários no explorador
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      "node_modules/": true,
+      "frontend/node_modules/": true,
+      "frontend/dist/": true,
+      "frontend/.angular/": true,
+      "backend/target/": true,
+      "backend/.mvn/": true,
+      "airflow/logs/": true,
+      "airflow/__pycache__/": true,
+      "**/__pycache__/": true,
+      "**/*.pyc": true,
+      ".nx/": true
+    },
+
+    // Associações de arquivos
+    "files.associations": {
+      "*.jsonc": "jsonc",
+      "angular.json": "jsonc",
+      "nx.json": "jsonc",
+      "tsconfig.json": "jsonc",
+      "tsconfig.*.json": "jsonc",
+      "docker-compose.yml": "yaml",
+      "docker-compose.*.yml": "yaml",
+      "application.yml": "yaml",
+      "application-*.yml": "yaml",
+      "Dockerfile*": "dockerfile",
+      ".dockerignore": "ignore",
+      "*.py": "python"
+    }
+  }
+}
