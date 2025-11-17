@@ -9,12 +9,12 @@
     // Backend Spring Boot
     {
       "name": "🔧 Backend (Spring Boot)",
-      "path": "../../backend/"
+      "path": "../../backend"
     },
     // Frontend Angular
     {
       "name": "🚀 Frontend (Angular)",
-      "path": "../../src/"
+      "path": "../../frontend"
     },
     // Scripts de automação e Airflow
     {
