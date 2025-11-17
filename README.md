@@ -34,11 +34,13 @@ A aplicação será composta por seções específicas, organizadas conforme os 
 ### Setores previstos:
 
 - **📊 Análise de Dados**
+
   - Ferramentas utilizadas
   - Scripts/modelos padrão
   - Procedimentos e vídeos explicativos
 
 - **💻 Desenvolvimento de Sistemas**
+
   - Práticas de versionamento e integração
   - Fluxos de desenvolvimento e deploy
   - Diretrizes técnicas
@@ -49,6 +51,7 @@ A aplicação será composta por seções específicas, organizadas conforme os 
   - Materiais de apoio
 
 ### Recursos adicionais:
+
 - **🎥 Vídeos tutoriais**
 - **🔗 Links de cursos e treinamentos**
 - **🔐 Conteúdos restritos com credenciais (fornecidas por supervisores)**
@@ -68,7 +71,7 @@ A aplicação será composta por seções específicas, organizadas conforme os 
 
 - [x] Estruturação do projeto Angular
 - [x] Integração com Angular Material
-- [x] Deploy automático via Vercel
+- [ ] Deploy automático via Vercel
 - [ ] Implementação de conteúdos setoriais
 - [ ] Integração com vídeos e links externos
 - [ ] Validação final com supervisores
