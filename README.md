@@ -1,80 +1,39 @@
-# 📘 Portal do Estagiário STI - TRE
+# Repositório Institucional para Empresas — MVP
 
-Este repositório abriga o projeto do **Portal do Estagiário da Seção de Tecnologia da Informação (STI) do Tribunal Regional Eleitoral (TRE)**, desenvolvido utilizando o framework **Angular** com **Angular Material** para a construção da interface.
+![Fluxo Macro do Sistema](docs/diagrams/fluxo-macro.svg)
 
-O objetivo principal do portal é fornecer um ambiente digital centralizado contendo **informações, orientações e recursos relevantes para a atuação eficiente dos estagiários da STI**, desde o início do período de estágio.
+Uma solução leve para armazenar e organizar documentos corporativos. Este MVP foca nas funcionalidades essenciais para uso diário em pequenas e médias empresas: upload, visualização, versionamento, busca e controle básico de acesso.
 
----
+**O que faz**
+- Gerencia documentos por setores e pastas.
+- Upload, preview e download de arquivos comuns.
+- Versionamento com histórico simples e restauração.
+- Busca por texto e filtros por metadados (tags, setor, data).
+- Controle de acesso básico (papéis e permissões) e auditoria de ações importantes.
 
-## 🎯 Objetivo
+**Objetivo**
+Tornar disponível rapidamente um repositório de documentos confiável e fácil de usar, com implantação simples para um time pequeno ou médio.
 
-Disponibilizar, por meio de uma aplicação web moderna e responsiva, os materiais e diretrizes necessárias ao desempenho das atividades dos estagiários, abrangendo:
+**Como usar (resumo)**
+- Faça login.
+- Envie documentos e preencha metadados mínimos (título, setor, tags).
+- Organize em pastas/coleções.
+- Busque, visualize e recupere versões anteriores quando necessário.
+- Administradores controlam usuários, grupos e permissões.
 
-- Estrutura organizacional da STI;
-- Procedimentos específicos de cada setor;
-- Conteúdos multimídia explicativos (vídeos e tutoriais);
-- Links de cursos externos para aprimoramento técnico (com acesso mediante autorização do supervisor responsável).
+**Executar localmente (rápido, opcional)**
+Se sua equipe usa Docker Compose, é possível iniciar os serviços com:
 
----
+```bash
+docker-compose up -d
+```
 
-## 🧰 Tecnologias Empregadas
+Para instruções detalhadas de instalação, integração ou deploy, mantenha a conversa e eu forneço um guia passo a passo.
 
-- [Angular](https://angular.io/) — Framework principal
-- [Angular Material](https://material.angular.io/) — Biblioteca de componentes UI com design responsivo e acessível
-- HTML5, CSS3, TypeScript
-- Git e GitHub — Controle de versão
-- [Vercel](https://vercel.com/) — Plataforma de deploy e hospedagem
-
----
-
-## 🗂 Estrutura da Aplicação
-
-A aplicação será composta por seções específicas, organizadas conforme os setores internos da STI:
-
-### Setores previstos:
-
-- **📊 Análise de Dados**
-  - Ferramentas utilizadas
-  - Scripts/modelos padrão
-  - Procedimentos e vídeos explicativos
-
-- **💻 Desenvolvimento de Sistemas**
-  - Práticas de versionamento e integração
-  - Fluxos de desenvolvimento e deploy
-  - Diretrizes técnicas
-
-- **🗳️ Sessões Eleitorais**
-  - Procedimentos operacionais
-  - Cronogramas e responsabilidades
-  - Materiais de apoio
-
-### Recursos adicionais:
-- **🎥 Vídeos tutoriais**
-- **🔗 Links de cursos e treinamentos**
-- **🔐 Conteúdos restritos com credenciais (fornecidas por supervisores)**
+**Contribuir / Contato**
+Abra uma issue neste repositório ou contate a equipe responsável para sugestões e relatos de problemas.
 
 ---
 
-## 👤 Público-Alvo
+*(Versão resumida do SRS original — para documentação mais técnica, posso gerar especificações adicionais sob demanda.)*
 
-- Estagiários ingressantes na STI do TRE
-- Supervisores e servidores que atuam no processo de capacitação
-
----
-
-## 📈 Status do Projeto
-
-🚧 **Em desenvolvimento**
-
-- [x] Estruturação do projeto Angular
-- [x] Integração com Angular Material
-- [x] Deploy automático via Vercel
-- [ ] Implementação de conteúdos setoriais
-- [ ] Integração com vídeos e links externos
-- [ ] Validação final com supervisores
-
----
-
-## 📄 Licença
-
-Este projeto destina-se exclusivamente ao uso interno da STI - TRE. O uso externo requer autorização formal da coordenação do setor.
