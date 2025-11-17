@@ -24,6 +24,8 @@ Disponibilizar, por meio de uma aplicação web moderna e responsiva, os materia
 - HTML5, CSS3, TypeScript
 - Git e GitHub — Controle de versão
 - [Vercel](https://vercel.com/) — Plataforma de deploy e hospedagem
+- [Airflow](https://airflow.apache.org/) — Orquestrador de tarefas de data science
+- [Docker](https://www.docker.com/) — Ambiente de desenvolvimento
 
 ---
 
