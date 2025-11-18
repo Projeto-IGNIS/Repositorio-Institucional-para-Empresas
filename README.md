@@ -33,31 +33,60 @@ Sistema web para armazenamento, gerenciamento e busca de documentos instituciona
 
 ## 🏃 Iniciando o Projeto
 
-### Ambiente Completo com Docker
+### Setup Rápido (Novo Desenvolvedor)
 
 ```bash
-# Clone o repositório
+# 1. Clone o repositório
 git clone <repo-url>
 cd Repositorio-Institucional-para-Empresas
 
-# Configure as variáveis de ambiente
-cp .env.example .env
+# 2. Verifique se Docker está rodando
+docker --version
+docker-compose --version
 
-# Inicie todos os serviços
-docker-compose up --build
+# 3. Suba todos os serviços (pode demorar um pouco)
+./scripts/up.sh
 
-# Ou use o script auxiliar
-./up.sh
+# 4. Aguarde todos os containers ficarem healthy
+docker-compose ps
+
+# 5. Teste se está funcionando
+curl http://localhost:8080/actuator/health
+# Deve retornar: {"status":"UP"}
 ```
+
+**Pronto!** Todos os serviços estarão rodando. Não precisa de arquivo `.env` para desenvolvimento local.
 
 ### Acessos
 
-- **Frontend:** http://localhost:4200
 - **API Backend:** http://localhost:8080
 - **Swagger UI:** http://localhost:8080/swagger-ui.html
-- **Airflow UI:** http://localhost:8081 (usuário: admin / senha: admin)
-- **Adminer (PostgreSQL):** http://localhost:8082
-- **Mongo Express:** http://localhost:8083
+- **Airflow UI:** http://localhost:8081 (user: `admin` / pass: `admin`)
+- **Health Check:** http://localhost:8080/actuator/health
+
+### Credenciais Padrão
+
+**Admin do Sistema:**
+- Username: `admin`
+- Password: `admin123`
+
+### Comandos Úteis
+
+```bash
+# Scripts de gerenciamento
+./scripts/up.sh      # Primeira vez / rebuild após mudanças
+./scripts/start.sh   # Reiniciar containers existentes (rápido)
+./scripts/stop.sh    # Pausar (mantém containers visíveis)
+./scripts/down.sh    # Parar e remover containers
+
+# Backup e restore
+./scripts/backup.sh  # Criar backup dos bancos
+./scripts/restore.sh <postgres_file> <mongo_file>
+
+# Docker direto
+docker-compose ps    # Ver status dos containers
+docker-compose logs -f backend  # Ver logs do backend
+```
 
 ### Desenvolvimento Local - Frontend
 
@@ -80,12 +109,14 @@ cd backend
 ├── backend/           # API Spring Boot
 ├── frontend/          # Aplicação Angular
 ├── airflow/           # DAGs e configurações do Airflow
-├── docker-compose.yml # Orquestração de serviços
 ├── scripts/           # Scripts operacionais
-│   ├── up.sh
-│   ├── down.sh
-│   ├── backup.sh
-│   └── seed.sh
+│   ├── up.sh          # Iniciar (primeira vez/rebuild)
+│   ├── start.sh       # Reiniciar containers existentes
+│   ├── stop.sh        # Pausar (mantém containers)
+│   ├── down.sh        # Parar e remover containers
+│   ├── backup.sh      # Backup dos bancos
+│   └── restore.sh     # Restaurar backup
+├── docker-compose.yml # Orquestração de serviços
 └── docs/              # Documentação adicional
 ```
 
