@@ -4,7 +4,7 @@
     {
       "label": "🚀 Servir aplicação Angular",
       "type": "shell",
-      "command": "ng serve",
+      "command": "npx ng serve",
       "options": {
         "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
       },
@@ -41,7 +41,7 @@
     {
       "label": "🛠️ Build aplicação Angular",
       "type": "shell",
-      "command": "ng build",
+      "command": "npx ng build",
       "options": {
         "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
       },
@@ -74,6 +74,157 @@
         "clear": false
       },
       "detail": "Instala as dependências do projeto Angular"
+    },
+    // ========== DOCKER/INFRASTRUCTURE ==========
+    {
+      "label": "🚀 UP - Iniciar todos os serviços",
+      "type": "shell",
+      "command": "./scripts/up.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Inicia todos os containers (primeira vez/rebuild)"
+    },
+    {
+      "label": "▶️ START - Reiniciar containers existentes",
+      "type": "shell",
+      "command": "./scripts/start.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Reinicia containers existentes (rápido)"
+    },
+    {
+      "label": "⏸️ STOP - Pausar containers",
+      "type": "shell",
+      "command": "./scripts/stop.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Para containers (mantém visíveis no VS Code)"
+    },
+    {
+      "label": "🛑 DOWN - Parar e remover containers",
+      "type": "shell",
+      "command": "./scripts/down.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Para e remove todos os containers"
+    },
+    {
+      "label": "💾 BACKUP - Fazer backup dos bancos",
+      "type": "shell",
+      "command": "./scripts/backup.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Cria backup do PostgreSQL e MongoDB"
+    },
+    // ========== BACKEND SPRING BOOT ==========
+    {
+      "label": "🌟 Backend - Rebuild container",
+      "type": "shell",
+      "command": "docker-compose up -d --build backend",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Rebuilda apenas o container do backend após mudanças no código"
+    },
+    {
+      "label": "📋 Backend - Ver logs",
+      "type": "shell",
+      "command": "docker-compose logs -f backend",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Mostra logs do backend em tempo real"
+    },
+    {
+      "label": "🔧 Backend - Maven clean install",
+      "type": "shell",
+      "command": "mvn clean install",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": ["$tsc"],
+      "detail": "Compila o projeto Spring Boot localmente"
     },
     {
       "label": "🔧 Instalar Angular CLI",
