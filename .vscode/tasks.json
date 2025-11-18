@@ -74,6 +74,21 @@
         "clear": false
       },
       "detail": "Instala as dependências do projeto Angular"
+    },
+    {
+      "label": "🔧 Instalar Angular CLI",
+      "type": "shell",
+      "command": "npm install -g @angular/cli",
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Instala o Angular CLI globalmente no sistema"
     }
   ]
 }
