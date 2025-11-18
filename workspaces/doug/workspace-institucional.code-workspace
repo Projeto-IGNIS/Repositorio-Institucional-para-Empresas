@@ -37,8 +37,8 @@
     // ║ CONFIGURAÇÕES GERAIS DO WORKSPACE            ║
     // ╚══════════════════════════════════════════════╝
 
-    // Usa a versão do TypeScript instalada no node_modules do frontend
-    "typescript.tsdk": "../../frontend/node_modules/typescript/lib",
+    // Usa a versão do TypeScript instalada no node_modules do projeto
+    "typescript.tsdk": "../../node_modules/typescript/lib",
     "typescript.enablePromptUseWorkspaceTsdk": true,
 
     // Desativa o aviso do Angular sobre modo estrito (common)
