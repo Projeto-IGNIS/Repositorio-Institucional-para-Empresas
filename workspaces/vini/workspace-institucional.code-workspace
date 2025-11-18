@@ -1,27 +1,21 @@
 {
   "folders": [
-    // A pasta raiz do projeto.
-    // Isso é útil para ver arquivos como docker-compose.yml, package.json, etc.
     {
       "name": "🏠 Raiz do Projeto",
-      "path": "../../"
+      "path": "../.."
     },
-    // Backend Spring Boot
     {
-      "name": "🔧 Backend (Spring Boot)",
-      "path": "../../backend/"
+      "name": "🔧 Backend",
+      "path": "../../backend"
     },
-    // Frontend Angular
     {
-      "name": "🚀 Frontend (Angular)",
-      "path": "../../frontend/repositorio-institucional/src/"
+      "name": "🚀 Frontend",
+      "path": "../../frontend/repositorio-institucional/src"
     },
-    // Scripts de automação e Airflow
     {
       "name": "📊 Airflow & Workflows",
       "path": "../../airflow"
     },
-    // Documentação do projeto
     {
       "name": "📚 Documentação",
       "path": "../../docs"
