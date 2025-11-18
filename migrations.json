@@ -1,0 +1,9 @@
+{
+  "nx-console": {
+    "initialGitRef": {
+      "ref": "921ca6885b5130210c0ce0b7eb9a56a8ca62415e",
+      "subject": "feat: simplify workspace folder names and paths for clarity"
+    },
+    "targetVersion": "next"
+  }
+}
