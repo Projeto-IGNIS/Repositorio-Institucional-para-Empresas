@@ -123,6 +123,7 @@ ng test
 ## 🔄 Workflows Airflow
 
 O Airflow gerencia processos assíncronos como:
+
 - Indexação de documentos para busca
 - Extração de metadados automáticos
 - Backups programados
