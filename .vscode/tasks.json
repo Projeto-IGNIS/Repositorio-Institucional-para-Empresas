@@ -240,6 +240,233 @@
         "clear": false
       },
       "detail": "Instala o Angular CLI globalmente no sistema"
+    },
+    // ========== TESTING ==========
+    {
+      "label": "🧪 Frontend - Executar testes",
+      "type": "shell",
+      "command": "npx ng test",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Executa testes unitários do Angular"
+    },
+    {
+      "label": "🧪 Frontend - Testes com coverage",
+      "type": "shell",
+      "command": "npx ng test --code-coverage",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Executa testes unitários com relatório de cobertura"
+    },
+    {
+      "label": "🧪 Backend - Executar testes",
+      "type": "shell",
+      "command": "mvn test",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": ["$tsc"],
+      "detail": "Executa testes unitários do Spring Boot"
+    },
+    // ========== NX WORKSPACE ==========
+    {
+      "label": "🎯 Nx - Mostrar projetos",
+      "type": "shell",
+      "command": "npx nx show projects",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Lista todos os projetos no workspace Nx"
+    },
+    {
+      "label": "🎯 Nx - Graph do workspace",
+      "type": "shell",
+      "command": "npx nx graph",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Abre o grafo visual das dependências do workspace"
+    },
+    {
+      "label": "🎯 Nx - Reset cache",
+      "type": "shell",
+      "command": "npx nx reset",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Limpa o cache do Nx"
+    },
+    // ========== LINTING & FORMATTING ==========
+    {
+      "label": "✨ Frontend - Lint",
+      "type": "shell",
+      "command": "npx ng lint",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": ["$eslint-stylish"],
+      "detail": "Executa linting no código Angular"
+    },
+    {
+      "label": "✨ Frontend - Prettier format",
+      "type": "shell",
+      "command": "npx prettier --write \"src/**/*.{ts,html,scss,json}\"",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Formata código Angular com Prettier"
+    },
+    // ========== DEVELOPMENT HELPERS ==========
+    {
+      "label": "🔍 Frontend - Analyze bundle",
+      "type": "shell",
+      "command": "npx ng build --stats-json && npx webpack-bundle-analyzer dist/repositorio-institucional/stats.json",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Analisa o tamanho do bundle Angular"
+    },
+    {
+      "label": "🔄 Frontend - Watch mode",
+      "type": "shell",
+      "command": "npx ng build --watch --configuration development",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": ["$tsc"],
+      "detail": "Compila Angular em modo watch (desenvolvimento)"
+    },
+    // ========== DATABASE ==========
+    {
+      "label": "🗄️ Database - Restore backup",
+      "type": "shell",
+      "command": "./scripts/restore.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Restaura backup do PostgreSQL e MongoDB"
+    },
+    // ========== AIRFLOW ==========
+    {
+      "label": "🌊 Airflow - Ver logs",
+      "type": "shell",
+      "command": "docker-compose logs -f airflow-webserver",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Mostra logs do Airflow em tempo real"
     }
   ]
 }
