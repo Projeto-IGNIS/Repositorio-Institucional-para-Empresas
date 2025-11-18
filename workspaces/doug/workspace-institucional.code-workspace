@@ -8,12 +8,12 @@
     },
     // Backend Spring Boot
     {
-      "name": "🔧 Backend (Spring Boot)",
+      "name": "🔧 Backend",
       "path": "../../backend/"
     },
     // Frontend Angular
     {
-      "name": "🚀 Frontend (Angular)",
+      "name": "🚀 Frontend",
       "path": "../../frontend/repositorio-institucional/src/"
     },
     // Scripts de automação e Airflow

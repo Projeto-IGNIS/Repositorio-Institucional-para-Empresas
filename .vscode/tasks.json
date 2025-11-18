@@ -1,0 +1,79 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🚀 Servir aplicação Angular",
+      "type": "shell",
+      "command": "ng serve",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": {
+        "owner": "typescript",
+        "source": "ts",
+        "applyTo": "closedDocuments",
+        "fileLocation": [
+          "relative",
+          "${workspaceFolder}/frontend/repositorio-institucional"
+        ],
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*",
+          "endsPattern": ".*Application bundle generation complete.*|.*Compiled successfully.*"
+        }
+      },
+      "detail": "Inicia o servidor de desenvolvimento Angular na porta 4200"
+    },
+    {
+      "label": "🛠️ Build aplicação Angular",
+      "type": "shell",
+      "command": "ng build",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": ["$tsc"],
+      "detail": "Compila a aplicação Angular para produção"
+    },
+    {
+      "label": "📦 Instalar dependências Angular",
+      "type": "shell",
+      "command": "npm install",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Instala as dependências do projeto Angular"
+    }
+  ]
+}
