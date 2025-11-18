@@ -14,17 +14,12 @@
     // Frontend Angular
     {
       "name": "🚀 Frontend (Angular)",
-      "path": "../../src/"
+      "path": "../../frontend/repositorio-institucional/src/"
     },
     // Scripts de automação e Airflow
     {
       "name": "📊 Airflow & Workflows",
       "path": "../../airflow"
-    },
-    // Scripts operacionais
-    {
-      "name": "⚙️ Scripts",
-      "path": "../../scripts"
     },
     // Documentação do projeto
     {
