@@ -1,12 +1,33 @@
 {
   "version": "2.0.0",
   "tasks": [
+    // ============================================================
+    // 🔥 DESENVOLVIMENTO DIÁRIO - USE ESTAS!
+    // ============================================================
     {
-      "label": "🚀 Servir aplicação Angular",
+      "label": "🔥 DEV: Verificar Ambiente",
       "type": "shell",
-      "command": "npx ng serve",
+      "command": "./scripts/check-env.sh",
       "options": {
-        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "detail": "⚡ EXECUTE PRIMEIRO: Verifica se .env e ambiente estão configurados"
+    },
+    {
+      "label": "🔥 DEV: Backend Local (Hot Reload)",
+      "type": "shell",
+      "command": "./run-local.sh",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
       },
       "group": {
         "kind": "build",
@@ -16,10 +37,42 @@
       "presentation": {
         "echo": true,
         "reveal": "always",
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^([^\\s].*):(\\d+):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*Repositorio.*Starting.*",
+          "endsPattern": "^.*Started RepositorioInstitucionalApplication.*"
+        }
+      },
+      "detail": "⚡ MAIS USADO: Backend local com hot reload (mudanças em 2s)"
+    },
+    {
+      "label": "🔥 DEV: Frontend Angular",
+      "type": "shell",
+      "command": "npx ng serve",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
         "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
       },
       "problemMatcher": {
         "owner": "typescript",
@@ -36,14 +89,14 @@
           "endsPattern": ".*Application bundle generation complete.*|.*Compiled successfully.*"
         }
       },
-      "detail": "Inicia o servidor de desenvolvimento Angular na porta 4200"
+      "detail": "⚡ Frontend com hot reload na porta 4200"
     },
     {
-      "label": "🛠️ Build aplicação Angular",
+      "label": "🔥 DEV: Iniciar Infraestrutura",
       "type": "shell",
-      "command": "npx ng build",
+      "command": "docker-compose up -d postgres mongodb redis",
       "options": {
-        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+        "cwd": "${workspaceFolder}"
       },
       "group": "build",
       "presentation": {
@@ -54,15 +107,18 @@
         "showReuseMessage": true,
         "clear": false
       },
-      "problemMatcher": ["$tsc"],
-      "detail": "Compila a aplicação Angular para produção"
+      "detail": "⚡ Inicia APENAS bancos de dados (necessário para dev local)"
     },
+
+    // ============================================================
+    // 🛑 PARAR SERVIÇOS
+    // ============================================================
     {
-      "label": "📦 Instalar dependências Angular",
+      "label": "🛑 STOP: Backend (Local ou Docker)",
       "type": "shell",
-      "command": "npm install",
+      "command": "docker stop repositorio-backend 2>/dev/null; lsof -ti:8080 | xargs kill -9 2>/dev/null; echo '✅ Backend parado'",
       "options": {
-        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+        "cwd": "${workspaceFolder}"
       },
       "group": "build",
       "presentation": {
@@ -73,20 +129,133 @@
         "showReuseMessage": true,
         "clear": false
       },
-      "detail": "Instala as dependências do projeto Angular"
+      "detail": "Para backend (local OU Docker)"
     },
-    // ========== DOCKER/INFRASTRUCTURE ==========
     {
-      "label": "🚀 UP - Iniciar todos os serviços",
+      "label": "🛑 STOP: Todos os Containers",
+      "type": "shell",
+      "command": "./scripts/stop.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Para todos os containers (mantém no Docker Desktop)"
+    },
+
+    // ============================================================
+    // 🧪 TESTES
+    // ============================================================
+    {
+      "label": "🧪 TEST: Backend (Maven)",
+      "type": "shell",
+      "command": "mvn test",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "detail": "Executa testes unitários do Spring Boot"
+    },
+    {
+      "label": "🧪 TEST: Frontend (Angular)",
+      "type": "shell",
+      "command": "npx ng test",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "detail": "Executa testes unitários do Angular"
+    },
+    {
+      "label": "🧪 TEST: Frontend com Coverage",
+      "type": "shell",
+      "command": "npx ng test --code-coverage",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "detail": "Testes com relatório de cobertura"
+    },
+
+    // ============================================================
+    // 🐳 DOCKER (Usar apenas para testes finais)
+    // ============================================================
+    {
+      "label": "🐳 DOCKER: Backend Rebuild",
+      "type": "shell",
+      "command": "docker-compose up -d --build backend",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "⚠️ LENTO: Rebuild backend no Docker (só para validar)"
+    },
+    {
+      "label": "🐳 DOCKER: Ver Logs Backend",
+      "type": "shell",
+      "command": "docker-compose logs -f backend",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "detail": "Mostra logs do backend no Docker"
+    },
+    {
+      "label": "🐳 DOCKER: UP - Todos os Serviços",
       "type": "shell",
       "command": "./scripts/up.sh",
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "group": {
-        "kind": "build",
-        "isDefault": false
-      },
+      "group": "build",
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -98,7 +267,7 @@
       "detail": "Inicia todos os containers (primeira vez/rebuild)"
     },
     {
-      "label": "▶️ START - Reiniciar containers existentes",
+      "label": "🐳 DOCKER: START - Reiniciar Containers",
       "type": "shell",
       "command": "./scripts/start.sh",
       "options": {
@@ -116,25 +285,7 @@
       "detail": "Reinicia containers existentes (rápido)"
     },
     {
-      "label": "⏸️ STOP - Pausar containers",
-      "type": "shell",
-      "command": "./scripts/stop.sh",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "detail": "Para containers (mantém visíveis no VS Code)"
-    },
-    {
-      "label": "🛑 DOWN - Parar e remover containers",
+      "label": "🐳 DOCKER: DOWN - Remover Tudo",
       "type": "shell",
       "command": "./scripts/down.sh",
       "options": {
@@ -151,8 +302,183 @@
       },
       "detail": "Para e remove todos os containers"
     },
+
+    // ============================================================
+    // 🔧 BUILD & COMPILE
+    // ============================================================
     {
-      "label": "💾 BACKUP - Fazer backup dos bancos",
+      "label": "🔧 BUILD: Backend Compile",
+      "type": "shell",
+      "command": "mvn clean compile",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Compila backend sem executar"
+    },
+    {
+      "label": "🔧 BUILD: Backend Package (JAR)",
+      "type": "shell",
+      "command": "mvn clean package -DskipTests",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Gera JAR do backend"
+    },
+    {
+      "label": "🔧 BUILD: Frontend Production",
+      "type": "shell",
+      "command": "npx ng build",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Compila Angular para produção"
+    },
+
+    // ============================================================
+    // 📦 INSTALAÇÃO DE DEPENDÊNCIAS
+    // ============================================================
+    {
+      "label": "📦 INSTALL: Backend Dependencies",
+      "type": "shell",
+      "command": "mvn clean install",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Baixa e instala dependências Maven"
+    },
+    {
+      "label": "📦 INSTALL: Frontend Dependencies",
+      "type": "shell",
+      "command": "npm install",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Instala dependências npm do Angular"
+    },
+    {
+      "label": "📦 INSTALL: Angular CLI Global",
+      "type": "shell",
+      "command": "npm install -g @angular/cli",
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Instala Angular CLI globalmente"
+    },
+
+    // ============================================================
+    // ✨ CODE QUALITY (Lint, Format, Analyze)
+    // ============================================================
+    {
+      "label": "✨ QUALITY: Frontend Lint",
+      "type": "shell",
+      "command": "npx ng lint",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Executa ESLint no código Angular"
+    },
+    {
+      "label": "✨ QUALITY: Frontend Format (Prettier)",
+      "type": "shell",
+      "command": "npx prettier --write \"src/**/*.{ts,html,scss,json}\"",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Formata código com Prettier"
+    },
+    {
+      "label": "✨ QUALITY: Analyze Bundle Size",
+      "type": "shell",
+      "command": "npx ng build --stats-json && npx webpack-bundle-analyzer dist/repositorio-institucional/stats.json",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Analisa tamanho do bundle Angular"
+    },
+
+    // ============================================================
+    // 💾 DATABASE (Backup & Restore)
+    // ============================================================
+    {
+      "label": "💾 DB: Backup",
       "type": "shell",
       "command": "./scripts/backup.sh",
       "options": {
@@ -169,269 +495,8 @@
       },
       "detail": "Cria backup do PostgreSQL e MongoDB"
     },
-    // ========== BACKEND SPRING BOOT ==========
     {
-      "label": "🌟 Backend - Rebuild container",
-      "type": "shell",
-      "command": "docker-compose up -d --build backend",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "detail": "Rebuilda apenas o container do backend após mudanças no código"
-    },
-    {
-      "label": "📋 Backend - Ver logs",
-      "type": "shell",
-      "command": "docker-compose logs -f backend",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "group": "build",
-      "isBackground": true,
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "detail": "Mostra logs do backend em tempo real"
-    },
-    {
-      "label": "🔧 Backend - Maven clean install",
-      "type": "shell",
-      "command": "mvn clean install",
-      "options": {
-        "cwd": "${workspaceFolder}/backend"
-      },
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "problemMatcher": ["$tsc"],
-      "detail": "Compila o projeto Spring Boot localmente"
-    },
-    {
-      "label": "🔧 Instalar Angular CLI",
-      "type": "shell",
-      "command": "npm install -g @angular/cli",
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "detail": "Instala o Angular CLI globalmente no sistema"
-    },
-    // ========== TESTING ==========
-    {
-      "label": "🧪 Frontend - Executar testes",
-      "type": "shell",
-      "command": "npx ng test",
-      "options": {
-        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
-      },
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "detail": "Executa testes unitários do Angular"
-    },
-    {
-      "label": "🧪 Frontend - Testes com coverage",
-      "type": "shell",
-      "command": "npx ng test --code-coverage",
-      "options": {
-        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
-      },
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "detail": "Executa testes unitários com relatório de cobertura"
-    },
-    {
-      "label": "🧪 Backend - Executar testes",
-      "type": "shell",
-      "command": "mvn test",
-      "options": {
-        "cwd": "${workspaceFolder}/backend"
-      },
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "problemMatcher": ["$tsc"],
-      "detail": "Executa testes unitários do Spring Boot"
-    },
-    // ========== NX WORKSPACE ==========
-    {
-      "label": "🎯 Nx - Mostrar projetos",
-      "type": "shell",
-      "command": "npx nx show projects",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "detail": "Lista todos os projetos no workspace Nx"
-    },
-    {
-      "label": "🎯 Nx - Graph do workspace",
-      "type": "shell",
-      "command": "npx nx graph",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "detail": "Abre o grafo visual das dependências do workspace"
-    },
-    {
-      "label": "🎯 Nx - Reset cache",
-      "type": "shell",
-      "command": "npx nx reset",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "detail": "Limpa o cache do Nx"
-    },
-    // ========== LINTING & FORMATTING ==========
-    {
-      "label": "✨ Frontend - Lint",
-      "type": "shell",
-      "command": "npx ng lint",
-      "options": {
-        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
-      },
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "problemMatcher": ["$eslint-stylish"],
-      "detail": "Executa linting no código Angular"
-    },
-    {
-      "label": "✨ Frontend - Prettier format",
-      "type": "shell",
-      "command": "npx prettier --write \"src/**/*.{ts,html,scss,json}\"",
-      "options": {
-        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
-      },
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "detail": "Formata código Angular com Prettier"
-    },
-    // ========== DEVELOPMENT HELPERS ==========
-    {
-      "label": "🔍 Frontend - Analyze bundle",
-      "type": "shell",
-      "command": "npx ng build --stats-json && npx webpack-bundle-analyzer dist/repositorio-institucional/stats.json",
-      "options": {
-        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
-      },
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "detail": "Analisa o tamanho do bundle Angular"
-    },
-    {
-      "label": "🔄 Frontend - Watch mode",
-      "type": "shell",
-      "command": "npx ng build --watch --configuration development",
-      "options": {
-        "cwd": "${workspaceFolder}/frontend/repositorio-institucional"
-      },
-      "group": "build",
-      "isBackground": true,
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "problemMatcher": ["$tsc"],
-      "detail": "Compila Angular em modo watch (desenvolvimento)"
-    },
-    // ========== DATABASE ==========
-    {
-      "label": "🗄️ Database - Restore backup",
+      "label": "💾 DB: Restore",
       "type": "shell",
       "command": "./scripts/restore.sh",
       "options": {
@@ -446,11 +511,126 @@
         "showReuseMessage": true,
         "clear": false
       },
-      "detail": "Restaura backup do PostgreSQL e MongoDB"
+      "detail": "Restaura backup dos bancos"
     },
-    // ========== AIRFLOW ==========
+
+    // ============================================================
+    // 🎯 NX WORKSPACE (Se usando Nx)
+    // ============================================================
     {
-      "label": "🌊 Airflow - Ver logs",
+      "label": "🎯 NX: Show Projects",
+      "type": "shell",
+      "command": "npx nx show projects",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Lista todos os projetos Nx"
+    },
+    {
+      "label": "🎯 NX: Dependency Graph",
+      "type": "shell",
+      "command": "npx nx graph",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Abre grafo de dependências"
+    },
+    {
+      "label": "🎯 NX: Reset Cache",
+      "type": "shell",
+      "command": "npx nx reset",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "Limpa cache do Nx"
+    },
+
+    // ============================================================
+    // 🌊 AIRFLOW (Data Pipeline)
+    // ============================================================
+    {
+      "label": "🌊 AIRFLOW: Iniciar Serviços",
+      "type": "shell",
+      "command": "docker-compose up -d airflow-webserver airflow-scheduler",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "⚡ Inicia Airflow (webserver + scheduler) - Acesse http://localhost:8081"
+    },
+    {
+      "label": "🌊 AIRFLOW: Parar Serviços",
+      "type": "shell",
+      "command": "docker-compose down airflow-webserver airflow-scheduler",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "🛑 Para Airflow (webserver + scheduler)"
+    },
+    {
+      "label": "🌊 AIRFLOW: Reiniciar Serviços",
+      "type": "shell",
+      "command": "docker-compose restart airflow-webserver airflow-scheduler",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "🔄 Reinicia Airflow (aplica mudanças em DAGs)"
+    },
+    {
+      "label": "🌊 AIRFLOW: Ver Logs Webserver",
       "type": "shell",
       "command": "docker-compose logs -f airflow-webserver",
       "options": {
@@ -462,11 +642,84 @@
         "echo": true,
         "reveal": "always",
         "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "detail": "📋 Mostra logs do Airflow Webserver"
+    },
+    {
+      "label": "🌊 AIRFLOW: Ver Logs Scheduler",
+      "type": "shell",
+      "command": "docker-compose logs -f airflow-scheduler",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "detail": "📋 Mostra logs do Airflow Scheduler"
+    },
+    {
+      "label": "🌊 AIRFLOW: Ver Status",
+      "type": "shell",
+      "command": "docker ps --filter name=airflow --format 'table {{.Names}}\\t{{.Status}}\\t{{.Ports}}'",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
         "panel": "shared",
         "showReuseMessage": true,
         "clear": false
       },
-      "detail": "Mostra logs do Airflow em tempo real"
+      "detail": "📊 Mostra status dos containers do Airflow"
+    },
+    {
+      "label": "🌊 AIRFLOW: Listar DAGs",
+      "type": "shell",
+      "command": "docker exec repositorio-airflow-scheduler airflow dags list",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "📝 Lista todas as DAGs disponíveis"
+    },
+    {
+      "label": "🌊 AIRFLOW: Configurar Conexões",
+      "type": "shell",
+      "command": "chmod +x ./airflow/setup-connections.sh && ./airflow/setup-connections.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "🔧 Configura conexões do Airflow com PostgreSQL e MongoDB"
     }
   ]
 }
