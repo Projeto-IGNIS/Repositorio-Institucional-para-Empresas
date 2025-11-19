@@ -2,6 +2,20 @@
 
 Sistema web para armazenamento, gerenciamento e busca de documentos institucionais, com controle de acesso baseado em permissões, hierarquia organizacional e metadados flexíveis.
 
+## 🔐 IMPORTANTE: Configuração de Variáveis de Ambiente
+
+**Antes de iniciar**, configure os arquivos `.env`:
+
+```bash
+# 1. Copie os templates
+cp .env.example .env
+cp backend/.env.example backend/.env
+
+# 2. Verifique se tudo está configurado corretamente
+./scripts/check-env.sh
+```
+---
+
 ## 🚀 Tecnologias
 
 - **Frontend:** Angular 19
@@ -40,17 +54,20 @@ Sistema web para armazenamento, gerenciamento e busca de documentos instituciona
 git clone <repo-url>
 cd Repositorio-Institucional-para-Empresas
 
-# 2. Verifique se Docker está rodando
-docker --version
-docker-compose --version
+# 2. Configure variáveis de ambiente
+cp .env.example .env
+cp backend/.env.example backend/.env
 
-# 3. Suba todos os serviços (pode demorar um pouco)
+# 3. Verifique se tudo está configurado
+./scripts/check-env.sh
+
+# 4. Suba todos os serviços (pode demorar um pouco)
 ./scripts/up.sh
 
-# 4. Aguarde todos os containers ficarem healthy
+# 5. Aguarde todos os containers ficarem healthy
 docker-compose ps
 
-# 5. Teste se está funcionando
+# 6. Teste se está funcionando
 curl http://localhost:8080/actuator/health
 # Deve retornar: {"status":"UP"}
 ```

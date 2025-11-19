@@ -6,9 +6,9 @@ services:
     image: postgres:16-alpine
     container_name: repositorio-postgres
     environment:
-      POSTGRES_DB: repositorio_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${POSTGRES_DB:-repositorio_db}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
     ports:
       - "5432:5432"
     volumes:
@@ -26,7 +26,7 @@ services:
     image: mongo:7
     container_name: repositorio-mongodb
     environment:
-      MONGO_INITDB_DATABASE: repositorio_db
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE:-repositorio_db}
     ports:
       - "27017:27017"
     volumes:
@@ -63,21 +63,21 @@ services:
     container_name: repositorio-backend
     environment:
       # Database Configuration
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/repositorio_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-repositorio_db}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-postgres}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       
       # MongoDB Configuration
-      SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/repositorio_db
+      SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/${MONGO_INITDB_DATABASE:-repositorio_db}
       
       # Redis Configuration
       SPRING_DATA_REDIS_HOST: redis
       SPRING_DATA_REDIS_PORT: 6379
       
       # JWT Configuration
-      JWT_SECRET: seu-secret-super-secreto-mude-em-producao-min-256-bits-necessarios
-      JWT_EXPIRATION: 86400000
-      JWT_REFRESH_EXPIRATION: 604800000
+      JWT_SECRET: ${JWT_SECRET:-seu-secret-super-secreto-mude-em-producao-min-256-bits-necessarios}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-86400000}
+      JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION:-604800000}
       
       # Application Configuration
       SPRING_PROFILES_ACTIVE: docker
@@ -99,9 +99,9 @@ services:
     image: postgres:16-alpine
     container_name: repositorio-airflow-postgres
     environment:
-      POSTGRES_DB: airflow
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: ${AIRFLOW_DB:-airflow}
+      POSTGRES_USER: ${AIRFLOW_USER:-airflow}
+      POSTGRES_PASSWORD: ${AIRFLOW_PASSWORD:-airflow}
     volumes:
       - airflow_postgres_data:/var/lib/postgresql/data
     networks:
@@ -118,16 +118,16 @@ services:
     container_name: repositorio-airflow-webserver
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres/airflow
-      AIRFLOW__CORE__FERNET_KEY: 'UFZmR1FqWFBfS0tMT05QUVJTVFVWXw=='
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_USER:-airflow}:${AIRFLOW_PASSWORD:-airflow}@airflow-postgres/${AIRFLOW_DB:-airflow}
+      AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY:-UFZmR1FqWFBfS0tMT05QUVJTVFVWXw==}
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
       AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
       AIRFLOW__WEBSERVER__EXPOSE_CONFIG: 'true'
       _AIRFLOW_DB_MIGRATE: 'true'
       _AIRFLOW_WWW_USER_CREATE: 'true'
-      _AIRFLOW_WWW_USER_USERNAME: admin
-      _AIRFLOW_WWW_USER_PASSWORD: admin
+      _AIRFLOW_WWW_USER_USERNAME: ${AIRFLOW_WWW_USER_USERNAME:-admin}
+      _AIRFLOW_WWW_USER_PASSWORD: ${AIRFLOW_WWW_USER_PASSWORD:-admin}
     ports:
       - "8081:8080"
     volumes:
@@ -149,8 +149,8 @@ services:
     container_name: repositorio-airflow-scheduler
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres/airflow
-      AIRFLOW__CORE__FERNET_KEY: 'UFZmR1FqWFBfS0tMT05QUVJTVFVWXw=='
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_USER:-airflow}:${AIRFLOW_PASSWORD:-airflow}@airflow-postgres/${AIRFLOW_DB:-airflow}
+      AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY:-UFZmR1FqWFBfS0tMT05QUVJTVFVWXw==}
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     volumes:

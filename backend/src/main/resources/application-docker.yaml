@@ -1,0 +1,34 @@
+# Profile para rodar DENTRO DO DOCKER
+# Para usar: SPRING_PROFILES_ACTIVE=docker
+# As variáveis vêm do docker-compose.yml
+
+spring:
+  # PostgreSQL - Usa hostname do Docker Compose
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://postgres:5432/repositorio_db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+
+  # MongoDB - Usa hostname do Docker Compose
+  data:
+    mongodb:
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://mongodb:27017/repositorio_db}
+    
+    # Redis - Usa hostname do Docker Compose
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:redis}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+
+# Logging menos verboso para container
+logging:
+  level:
+    root: INFO
+    ignis.repositorio: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.hibernate.SQL: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } --- [%t] %-40.40logger{39} : %m%n"
+
+server:
+  port: 8080
