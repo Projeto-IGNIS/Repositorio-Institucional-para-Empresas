@@ -13,3 +13,12 @@
 .env.*.local
 backend/.env
 backend/.env.local
+
+# Airflow
+airflow/logs/
+airflow/__pycache__/
+airflow/.airflowignore
+airflow/backups/
+*.pyc
+*.pyo
+*.pyd

@@ -576,7 +576,61 @@
     // 🌊 AIRFLOW (Data Pipeline)
     // ============================================================
     {
-      "label": "🌊 AIRFLOW: Ver Logs",
+      "label": "🌊 AIRFLOW: Iniciar Serviços",
+      "type": "shell",
+      "command": "docker-compose up -d airflow-webserver airflow-scheduler",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "⚡ Inicia Airflow (webserver + scheduler) - Acesse http://localhost:8081"
+    },
+    {
+      "label": "🌊 AIRFLOW: Parar Serviços",
+      "type": "shell",
+      "command": "docker-compose down airflow-webserver airflow-scheduler",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "🛑 Para Airflow (webserver + scheduler)"
+    },
+    {
+      "label": "🌊 AIRFLOW: Reiniciar Serviços",
+      "type": "shell",
+      "command": "docker-compose restart airflow-webserver airflow-scheduler",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "🔄 Reinicia Airflow (aplica mudanças em DAGs)"
+    },
+    {
+      "label": "🌊 AIRFLOW: Ver Logs Webserver",
       "type": "shell",
       "command": "docker-compose logs -f airflow-webserver",
       "options": {
@@ -592,7 +646,80 @@
         "showReuseMessage": false,
         "clear": true
       },
-      "detail": "Mostra logs do Airflow"
+      "detail": "📋 Mostra logs do Airflow Webserver"
+    },
+    {
+      "label": "🌊 AIRFLOW: Ver Logs Scheduler",
+      "type": "shell",
+      "command": "docker-compose logs -f airflow-scheduler",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "detail": "📋 Mostra logs do Airflow Scheduler"
+    },
+    {
+      "label": "🌊 AIRFLOW: Ver Status",
+      "type": "shell",
+      "command": "docker ps --filter name=airflow --format 'table {{.Names}}\\t{{.Status}}\\t{{.Ports}}'",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "📊 Mostra status dos containers do Airflow"
+    },
+    {
+      "label": "🌊 AIRFLOW: Listar DAGs",
+      "type": "shell",
+      "command": "docker exec repositorio-airflow-scheduler airflow dags list",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "📝 Lista todas as DAGs disponíveis"
+    },
+    {
+      "label": "🌊 AIRFLOW: Configurar Conexões",
+      "type": "shell",
+      "command": "chmod +x ./airflow/setup-connections.sh && ./airflow/setup-connections.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "detail": "🔧 Configura conexões do Airflow com PostgreSQL e MongoDB"
     }
   ]
 }

@@ -99,9 +99,9 @@ services:
     image: postgres:16-alpine
     container_name: repositorio-airflow-postgres
     environment:
-      POSTGRES_DB: ${AIRFLOW_DB:-airflow}
-      POSTGRES_USER: ${AIRFLOW_USER:-airflow}
-      POSTGRES_PASSWORD: ${AIRFLOW_PASSWORD:-airflow}
+      POSTGRES_DB: ${AIRFLOW_DB}
+      POSTGRES_USER: ${AIRFLOW_USER}
+      POSTGRES_PASSWORD: ${AIRFLOW_PASSWORD}
     volumes:
       - airflow_postgres_data:/var/lib/postgresql/data
     networks:
@@ -118,16 +118,16 @@ services:
     container_name: repositorio-airflow-webserver
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_USER:-airflow}:${AIRFLOW_PASSWORD:-airflow}@airflow-postgres/${AIRFLOW_DB:-airflow}
-      AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY:-UFZmR1FqWFBfS0tMT05QUVJTVFVWXw==}
-      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_USER}:${AIRFLOW_PASSWORD}@airflow-postgres/${AIRFLOW_DB}
+      AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY}
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
       AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
       AIRFLOW__WEBSERVER__EXPOSE_CONFIG: 'true'
       _AIRFLOW_DB_MIGRATE: 'true'
       _AIRFLOW_WWW_USER_CREATE: 'true'
-      _AIRFLOW_WWW_USER_USERNAME: ${AIRFLOW_WWW_USER_USERNAME:-admin}
-      _AIRFLOW_WWW_USER_PASSWORD: ${AIRFLOW_WWW_USER_PASSWORD:-admin}
+      _AIRFLOW_WWW_USER_USERNAME: ${AIRFLOW_WWW_USER_USERNAME}
+      _AIRFLOW_WWW_USER_PASSWORD: ${AIRFLOW_WWW_USER_PASSWORD}
     ports:
       - "8081:8080"
     volumes:
@@ -149,9 +149,9 @@ services:
     container_name: repositorio-airflow-scheduler
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_USER:-airflow}:${AIRFLOW_PASSWORD:-airflow}@airflow-postgres/${AIRFLOW_DB:-airflow}
-      AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY:-UFZmR1FqWFBfS0tMT05QUVJTVFVWXw==}
-      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_USER}:${AIRFLOW_PASSWORD}@airflow-postgres/${AIRFLOW_DB}
+      AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY}
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     volumes:
       - ./airflow/dags:/opt/airflow/dags
